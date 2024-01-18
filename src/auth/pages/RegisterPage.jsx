@@ -7,9 +7,9 @@ import { useForm } from '../../hooks'
 import { startCreatingUserWithEmail } from '../../store/auth'
 
 const formData = {
-  displayName: 'John Doe',
-  email: 'email@email.com',
-  password: '123456'
+  displayName: '',
+  email: '',
+  password: ''
 }
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -44,7 +44,7 @@ export const RegisterPage = () => {
   return (
 
     <AuthLayout title='Register'>
-        <form onSubmit={ onSubmit } >
+        <form onSubmit={ onSubmit } className='animate__animated animate__fadeIn'>
           <Grid container>
 
             <Grid item xs={ 12 } sx={{ mt: 2 }}>
@@ -52,7 +52,7 @@ export const RegisterPage = () => {
                 label='Name'
                 type='text'
                 placeholder='Full name'
-                name='name'
+                name='displayName'
                 value={displayName}
                 onChange={ onInputChange }
                 error={ !!displayNameValid && formSubmited}
