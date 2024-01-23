@@ -1,16 +1,20 @@
 import Proptypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
-import { TurnedInNot } from '@mui/icons-material'
+import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material'
+import { SideBarItem } from './SideBarItem'
 
 export const SideBar = ({ drawerWidth = 240 }) => {
   const { displayName } = useSelector(state => state.auth)
+  const { notes } = useSelector(state => state.journal)
 
   return (
     <Box
+        className='animate__animated animate__fadeInLeft animate__fast'
         component='nav'
         sx={{
-          width: { sm: drawerWidth }, flexShrink: { sm: 0 }
+          width: { sm: drawerWidth },
+          flexShrink: { sm: 0 },
+          display: { xs: 'none', sm: 'flex' }
         }}
     >
         <Drawer
@@ -30,21 +34,11 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
             <List>
                 {
-                    ['Enero', 'Febrero', 'Abril'].map(text => (
-                        <ListItem key={ text } disablePadding >
-                            <ListItemButton>
-
-                                <ListItemIcon>
-                                    <TurnedInNot sx={{ color: 'primary.main' }}/>
-                                </ListItemIcon>
-
-                                <Grid container>
-                                    <ListItemText primary = {text} sx={{ color: 'primary.main' }}/>
-                                    <ListItemText secondary = 'Tempor eiusmod culpa velit nulla dolore.' />
-                                </Grid>
-
-                            </ListItemButton>
-                        </ListItem>
+                    notes.map(note => (
+                        <SideBarItem
+                            key={note.id}
+                            {...note}
+                        />
                     ))
                 }
             </List>
