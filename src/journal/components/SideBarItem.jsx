@@ -62,5 +62,5 @@ SideBarItem.propTypes = {
   title: Proptypes.string.isRequired,
   body: Proptypes.string.isRequired,
   date: Proptypes.number.isRequired,
-  imageUrls: Proptypes.array.isRequired
+  imageUrls: Proptypes.array
 }
