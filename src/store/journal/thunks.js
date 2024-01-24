@@ -13,6 +13,7 @@ export const startNewNote = () => {
     const newNote = {
       title: '',
       body: '',
+      imagesUrls: [],
       date: new Date().getTime()
     }
 
