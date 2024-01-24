@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Button, Grid, IconButton, TextField, Typography } from '@mui/material'
-import { SaveOutlined, UploadFileOutlined } from '@mui/icons-material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
+import { DeleteOutline, SaveOutlined, UploadFileOutlined } from '@mui/icons-material'
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.css'
 
-import { setActiveNote, startSaveNote, startUploadingFiles } from '../../store/journal'
+import { setActiveNote, startDeletingNote, startSaveNote, startUploadingFiles } from '../../store/journal'
 import { ImageGallery } from '../components/ImageGallery'
 import { useForm } from '../../hooks/useForm'
 
@@ -33,7 +33,36 @@ export const NoteView = () => {
   const fileInputRef = useRef()
 
   const onSaveNote = () => {
-    dispatch(startSaveNote())
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: 'Don\'t save'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(startSaveNote())
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+  }
+
+  const onDelete = () => {
+    Swal.fire({
+      title: 'Do you want to delete the note?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: 'Delete',
+      denyButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Deleted!', '', 'success')
+        dispatch(startDeletingNote())
+      } else if (result.isDenied) {
+        Swal.fire('Note are not deleted', '', 'info')
+      }
+    })
   }
 
   const onFileInputChange = ({ target }) => {
@@ -60,22 +89,32 @@ export const NoteView = () => {
               style={{ display: 'none' }}
             />
 
-            <IconButton
+            <Button
               color='primary'
               disabled={ isSaving }
-              sx={{ padding: 1, ':hover': { backgroundColor: 'view.secondary' } }}
+              sx={{
+                padding: 1,
+                ':hover': { backgroundColor: 'view.secondary' },
+                alignItems: 'center',
+                fontSize: '12px'
+              }}
               onClick={ () => fileInputRef.current.click() }
             >
-              <UploadFileOutlined sx={{ fontSize: 24 }} />
-            </IconButton>
+              <UploadFileOutlined sx={{ fontSize: 22, mr: 0.5 }} />
+              Upload
+            </Button>
 
             <Button
               disabled={ isSaving }
               onClick={ onSaveNote }
               color='primary'
-              sx={{ padding: 1, ':hover': { backgroundColor: 'view.secondary' } }}
+              sx={{
+                padding: 1,
+                ':hover': { backgroundColor: 'view.secondary' },
+                fontSize: '12px'
+              }}
             >
-                <SaveOutlined sx={{ fontSize: 24, mr: 1 }} />
+                <SaveOutlined sx={{ fontSize: 22, mr: 0.5 }} />
                 Save
             </Button>
         </Grid>
@@ -114,6 +153,17 @@ export const NoteView = () => {
         </Grid>
 
         <ImageGallery images={activeNote.imageUrls}/>
+
+        <Grid container justifyContent='end'>
+            <Button
+              onClick={ onDelete }
+              color='error'
+              sx={{ padding: 1, ':hover': { backgroundColor: 'error.secondary' } }}
+            >
+                <DeleteOutline />
+                Delete
+            </Button>
+        </Grid>
 
     </Grid>
   )

@@ -14,7 +14,8 @@ export const vintageTheme = createTheme({
       secondary: '#DED0B650'
     },
     error: {
-      main: red.A400
+      main: red.A400,
+      secondary: red[100]
     }
   }
 })

@@ -9,7 +9,7 @@ export const ImageGallery = ({ images }) => {
         cols={ 4 }
         rowHeight={200}
     >
-    {images.map((image) => (
+    {images?.map((image) => (
         <ImageListItem key={image}>
         <img
             src={`${image}?w=164&h=164&fit=crop&auto=format`}
@@ -24,5 +24,5 @@ export const ImageGallery = ({ images }) => {
 }
 
 ImageGallery.propTypes = {
-  images: Proptypes.array.isRequired
+  images: Proptypes.array
 }

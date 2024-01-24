@@ -1,14 +1,20 @@
-import Proptypes from 'prop-types'
 import { useDispatch } from 'react-redux'
+import Proptypes from 'prop-types'
+
 import { LogoutOutlined, MenuOutlined } from '@mui/icons-material'
 import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material'
+
 import { startLogout } from '../../store/auth'
 
-export const NavBar = ({ drawerWidth = 240 }) => {
+export const NavBar = ({ drawerWidth = 240, setShowSidebar, showSidebar }) => {
   const dispatch = useDispatch()
 
   const onLogout = () => {
     dispatch(startLogout())
+  }
+
+  const onShowSidebar = () => {
+    setShowSidebar(!showSidebar)
   }
 
   return (
@@ -21,11 +27,13 @@ export const NavBar = ({ drawerWidth = 240 }) => {
     >
         <Toolbar>
             <IconButton
+                onClick={ onShowSidebar }
                 color='inherit'
                 edge='start'
                 sx={{
                   mr: 2,
-                  display: { sm: 'none' }
+                  display: { sm: 'none' },
+                  ':hover': { backgroundColor: 'view.secondary' }
                 }}
             >
                 <MenuOutlined />
@@ -36,7 +44,7 @@ export const NavBar = ({ drawerWidth = 240 }) => {
                     Journal App
                 </Typography>
 
-                <IconButton color='inherit' onClick={ onLogout }>
+                <IconButton color='inherit' onClick={ onLogout } sx={{ ':hover': { backgroundColor: 'view.secondary' } }}>
                     <LogoutOutlined />
                 </IconButton>
             </Grid>
@@ -48,5 +56,7 @@ export const NavBar = ({ drawerWidth = 240 }) => {
 }
 
 NavBar.propTypes = {
-  drawerWidth: Proptypes.number.isRequired
+  drawerWidth: Proptypes.number.isRequired,
+  showSidebar: Proptypes.bool.isRequired,
+  setShowSidebar: Proptypes.func.isRequired
 }
