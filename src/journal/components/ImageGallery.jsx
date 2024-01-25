@@ -4,7 +4,7 @@ import { ImageList, ImageListItem } from '@mui/material'
 export const ImageGallery = ({ images }) => {
   return (
     <ImageList
-        sx={{ width: '100%', height: 200, borderRadius: 1 }}
+        sx={{ width: '100%', height: 200, borderRadius: 1.5 }}
         variant="quilted"
         cols={ 4 }
         rowHeight={200}
