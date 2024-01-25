@@ -73,7 +73,7 @@ export const LoginPage = () => {
 
               <Grid item xs={ 12 } sm={ 6 }>
                 <Button
-                  disabled = {isCheckingAuth}
+                  disabled= { isCheckingAuth }
                   variant='contained'
                   fullWidth
                   type='submit'>
@@ -83,7 +83,7 @@ export const LoginPage = () => {
 
               <Grid item xs={ 12 } sm={ 6 }>
                 <Button
-                  disabled = {isCheckingAuth}
+                  disabled={ isCheckingAuth }
                   variant='contained'
                   fullWidth
                   onClick={ onGoogleSingIn }
@@ -95,7 +95,11 @@ export const LoginPage = () => {
 
             </Grid>
 
-            <Grid container direction='row' justifyContent='end'>
+            <Grid 
+              container 
+              direction='row' 
+              justifyContent='end'
+            >
               <Link component={ RouterLink } color='inherit' to='/auth/register'>
                 Register
               </Link>

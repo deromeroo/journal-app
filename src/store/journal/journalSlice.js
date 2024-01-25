@@ -7,13 +7,6 @@ export const journalSlice = createSlice({
     messageSaved: '',
     notes: [],
     activeNote: null
-    // activeNote: {
-    //   id: 'ABCDE',
-    //   title: '',
-    //   body: '',
-    //   date: 1245,
-    //   imageUrls: []
-    // }
   },
   reducers: {
     savingNewNote: (state) => {
@@ -60,7 +53,6 @@ export const journalSlice = createSlice({
   }
 })
 
-// Action creators are generated for each case reducer function
 export const {
   savingNewNote,
   addNewEmptyNote,
